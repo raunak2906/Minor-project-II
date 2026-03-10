@@ -1,0 +1,256 @@
+{% extends "layout.html" %}
+{%block body%}
+
+<!-- HERO -->
+<!-- HERO -->
+<!-- HERO V2: Magazine Style -->
+<section class="hero" style="padding: 4rem 0 6rem; position: relative; overflow: hidden;">
+  <div class="container hero-grid" style="align-items: center; grid-template-columns: 1.1fr 0.9fr; gap: 4rem;">
+
+    <!-- Left Content -->
+    <div style="z-index: 2; position: relative;">
+      <div class="animate-up"
+        style="display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 1.5rem; background: rgba(0, 113, 227, 0.1); padding: 0.5rem 1rem; border-radius: 99px; color: var(--primary); font-weight: 600; font-size: 0.9rem;">
+        <span style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%; display: block;"></span>
+        New Collection '25
+      </div>
+
+      <h1 class="animate-up delay-100"
+        style="font-size: 4.5rem; font-weight: 800; line-height: 1.05; letter-spacing: -2px; margin-bottom: 1.5rem; color: #1d1d1f;">
+        Pure. <br>
+        <span
+          style="background: linear-gradient(135deg, #0071e3 0%, #00c6fb 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Potent.</span>
+        <br>
+        Proven.
+      </h1>
+
+      <p class="hero-sub animate-up delay-200"
+        style="font-size: 1.25rem; line-height: 1.6; color: #424245; margin-bottom: 2.5rem; max-width: 90%;">
+        Experience the next generation of natural care. <br>
+        <span style="opacity: 0.7;">Scientifically formulated for visible results.</span>
+      </p>
+
+      <div class="hero-actions animate-up delay-300" style="display: flex; gap: 1rem;">
+        <a href="/shop">
+          <button class="btn btn-primary"
+            style="padding: 1rem 2.5rem; font-size: 1.1rem; box-shadow: 0 10px 40px rgba(0, 113, 227, 0.4);">
+            Shop Collection
+          </button>
+        </a>
+        <a href="/about">
+          <button class="btn btn-outline"
+            style="padding: 1rem 2rem; font-size: 1.1rem; border-color: #d2d2d7; background: rgba(255,255,255,0.8);">
+            Our Story
+          </button>
+        </a>
+      </div>
+
+      <!-- Social Proof Pills -->
+      <div class="animate-up delay-300" style="margin-top: 4rem; display: flex; gap: 1.5rem; align-items: center;">
+        <div style="display: flex; -webkit-box-align: center; align-items: center; gap: -10px;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: #ddd; border: 3px solid #fff;"></div>
+          <div
+            style="width: 40px; height: 40px; border-radius: 50%; background: #ccc; border: 3px solid #fff; margin-left: -15px;">
+          </div>
+          <div
+            style="width: 40px; height: 40px; border-radius: 50%; background: #bbb; border: 3px solid #fff; margin-left: -15px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold; color: #555; background: #f5f5f7;">
+            +50k</div>
+        </div>
+        <div>
+          <div style="color: #1d1d1f; font-weight: 700;">Trusted by 50k+</div>
+          <div style="color: #86868b; font-size: 0.9rem;">Happy Customers</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Image (3D Floating Effect) -->
+    <div class="hero-card animate-up delay-200"
+      style="background: transparent; border: none; box-shadow: none; perspective: 1000px;">
+      <div style="position: relative; transform-style: preserve-3d; transform: rotateY(-10deg) rotateX(5deg);">
+        <!-- Main Image Card -->
+        <div
+          style="background: white; border-radius: 30px; padding: 2rem; box-shadow: 0 30px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05); position: relative; z-index: 2;">
+          <img src="/static/img/orma/offer/05.png" alt="Hero Product"
+            style="width: 100%; height: auto; display: block; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15));">
+
+          <!-- Floating Badge -->
+          <div
+            style="position: absolute; top: 10%; right: -20px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); padding: 1rem 1.5rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px; animation: float 6s ease-in-out infinite;">
+            <div style="width: 10px; height: 10px; background: #34c759; border-radius: 50%;"></div>
+            <div>
+              <div style="font-weight: 700; font-size: 0.9rem;">In Stock</div>
+              <div style="font-size: 0.8rem; color: #86868b;">Ready to ship</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Background Blur Blob -->
+        <div
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 120%; height: 120%; background: radial-gradient(circle, rgba(0,113,227,0.2) 0%, transparent 70%); z-index: 1; filter: blur(40px);">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+  </style>
+</section>
+
+<!-- CATEGORIES + PRODUCTS -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Trending now</h2>
+        <p class="section-sub">Most loved products this week.</p>
+      </div>
+      <a href="/shop">
+        <p class="section-sub">View all →</p>
+      </a>
+    </div>
+
+    <!-- <div class="cat-row"> -->
+    <!-- <button class="chip active">All</button> -->
+    <!-- <button class="chip">Smartphones</button> -->
+    <!-- <button class="chip">Laptops</button> -->
+    <!-- <button class="chip">Smartwatches</button> -->
+    <!-- <button class="chip">Headphones</button> -->
+    <!-- <button class="chip">Sneakers</button> -->
+    <!-- <button class="chip">Home & Kitchen</button> -->
+    <!-- </div> -->
+
+    <div class="product-grid">
+      <!-- Product 1 -->
+      {%for i in pd%}
+
+      <article class="product-card"><a href="single_item/{{i.sno}}">
+          <div class="product-img">
+            <img src="/static/img/pdimg/{{i.sno}}/01.jpeg" alt="{{i.name}}" height="250"
+              style="display:block;margin:auto;">
+          </div>
+          <div class="product-info">
+            <div class="product-name">{{i.name}}</div>
+            <div class="product-brand">ORMA</div>
+            <!-- <div class="rating">★★★★★ · 4.8</div> -->
+          </div>
+          <div class="product-bottom">
+        </a>
+        <div class="price">₹{{i.price}}<small>₹{{(i.price+i.price/6) | round(2) }}</small></div>
+        <!-- <button class="add-btn" onclick="addToCart({{i.sno}})">Add to cart</button> -->
+
+    </div>
+    </article>
+
+    {%endfor%}
+    <!-- Product 2 -->
+    <!-- <article class="product-card"> -->
+    <!-- <div class="product-img"> -->
+    <!-- <img src="https://images.pexels.com/photos/845434/pexels-photo-845434.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Smartwatch"> -->
+    <!-- </div> -->
+    <!-- <div class="product-info"> -->
+    <!-- <div class="product-name">Aurora AMOLED Smartwatch</div> -->
+    <!-- <div class="product-brand">PulseFit Nova</div> -->
+    <!-- <div class="rating">★★★★☆ · 4.4</div> -->
+    <!-- </div> -->
+    <!-- <div class="product-bottom"> -->
+    <!-- <div class="price">₹3,199 <small>₹5,499</small></div> -->
+    <!-- <button class="add-btn">Add to cart</button> -->
+    <!-- </div> -->
+    <!-- </article> -->
+
+    <!-- Product 3 -->
+    <!-- <article class="product-card"> -->
+    <!-- <div class="product-img"> -->
+    <!-- <img src="https://images.pexels.com/photos/267394/pexels-photo-267394.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Laptop"> -->
+    <!-- </div> -->
+    <!-- <div class="product-info"> -->
+    <!-- <div class="product-name">Ultralite 14&quot; Laptop</div> -->
+    <!-- <div class="product-brand">ZenCore Air</div> -->
+    <!-- <div class="rating">★★★★★ · 4.7</div> -->
+    <!-- </div> -->
+    <!-- <div class="product-bottom"> -->
+    <!-- <div class="price">₹58,990 <small>₹74,990</small></div> -->
+    <!-- <button class="add-btn">Add to cart</button> -->
+    <!-- </div> -->
+    <!-- </article> -->
+
+    <!-- Product 4 -->
+    <!-- <article class="product-card"> -->
+    <!-- <div class="product-img"> -->
+    <!-- <img src="https://images.pexels.com/photos/1124465/pexels-photo-1124465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Sneakers"> -->
+    <!-- </div> -->
+    <!-- <div class="product-info"> -->
+    <!-- <div class="product-name">Velocity Foam Sneakers</div> -->
+    <!-- <div class="product-brand">AeroRun Flux</div> -->
+    <!-- <div class="rating">★★★★☆ · 4.5</div> -->
+    <!-- </div> -->
+    <!-- <div class="product-bottom"> -->
+    <!-- <div class="price">₹3,699 <small>₹5,999</small></div> -->
+    <!-- <button class="add-btn">Add to cart</button> -->
+    <!-- </div> -->
+    <!-- </article> -->
+  </div>
+
+  <!-- CTA / Newsletter -->
+  <div class="cta-row">
+    <div>
+      <h3>Get exclusive offers in your inbox</h3>
+      <p>Join our newsletter for early access to new launches and special discounts.</p>
+    </div>
+    <div class="cta-inputs">
+      <input type="email" placeholder="Enter your email" required>
+      <button type="button">Join for free</button>
+    </div>
+  </div>
+  </div>
+</section>
+
+
+
+
+<script>
+  function addToCart(id) {
+    let cart = getCookie("cart");   // पुरानी cookie मिलेगी
+
+    if (cart) {
+      // अगर cookie है → नए id को जोड़ दो (comma se)
+      cart = cart.split(",");
+      if (!cart.includes(String(id))) {   // duplicate na ho
+        cart.push(id);
+      }
+      document.cookie = "cart=" + cart.join(",") + "; path=/";
+    } else {
+      // अगर cookie नहीं है → नई बना दो
+      document.cookie = "cart=" + id + "; path=/";
+    }
+
+    alert("Added to cart");
+  }
+
+  // Cookie पढ़ने का आसान function
+  function getCookie(name) {
+    let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+{%endblock%}

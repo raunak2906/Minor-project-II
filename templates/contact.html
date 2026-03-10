@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="container" style="padding: 4rem 0;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+
+        <!-- Contact Info -->
+        <div>
+            <span class="eyebrow" style="margin-bottom: 1rem;">Get in Touch</span>
+            <h1 style="font-size: 2.5rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 1rem;">We're here
+                to help</h1>
+            <p style="color: var(--muted); font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem;">
+                Have questions about your order or need assistance? Our team is ready to assist you.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div
+                        style="width: 40px; height: 40px; background: var(--primary-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                        📍</div>
+                    <div>
+                        <div style="font-weight: 600;">Headquarters</div>
+                        <div style="color: var(--muted); font-size: 0.9rem;">123 Innovation Dr, Tech City</div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div
+                        style="width: 40px; height: 40px; background: var(--primary-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                        📧</div>
+                    <div>
+                        <div style="font-weight: 600;">Email Us</div>
+                        <div style="color: var(--muted); font-size: 0.9rem;">support@novamart.com</div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div
+                        style="width: 40px; height: 40px; background: var(--primary-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                        📞</div>
+                    <div>
+                        <div style="font-weight: 600;">Call Us</div>
+                        <div style="color: var(--muted); font-size: 0.9rem;">+1 (800) 123-4567</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div
+            style="background: white; padding: 2.5rem; border-radius: 1.5rem; box-shadow: var(--shadow); border: 1px solid var(--border);">
+            <form action="#" method="POST" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                <div>
+                    <label
+                        style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--text);">Name</label>
+                    <input type="text" placeholder="John Doe"
+                        style="width: 100%; padding: 0.8rem; border-radius: 0.8rem; border: 1px solid var(--border); outline: none; transition: border-color 0.2s; font-family: inherit;">
+                </div>
+                <div>
+                    <label
+                        style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--text);">Email</label>
+                    <input type="email" placeholder="john@example.com"
+                        style="width: 100%; padding: 0.8rem; border-radius: 0.8rem; border: 1px solid var(--border); outline: none; transition: border-color 0.2s; font-family: inherit;">
+                </div>
+                <div>
+                    <label
+                        style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--text);">Message</label>
+                    <textarea placeholder="How can we help?" rows="4"
+                        style="width: 100%; padding: 0.8rem; border-radius: 0.8rem; border: 1px solid var(--border); outline: none; transition: border-color 0.2s; font-family: inherit; resize: vertical;"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary"
+                    style="justify-content: center; padding: 1rem; margin-top: 0.5rem;">Send Message</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,169 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="container" style="margin-top: 2rem; margin-bottom: 3rem; min-height: 60vh;">
+  <h1 style="color: var(--primary-dark); margin-bottom: 2rem; font-weight: 700;">Your Cart</h1>
+
+  <div id="cart-content">
+    {% if has_items %}
+    <table class="cart-table">
+      <thead style="display: none;">
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Qty</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart_items %}
+        <tr class="cart-row">
+          <td>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <img src="{{item.img}}"
+                style="width: 70px; height: 70px; object-fit: cover; border-radius: 0.8rem; background: #f3f4f6;">
+              <div>
+                <div style="font-weight: 600; color: var(--primary-dark); font-size: 1.05rem;">{{item.name}}</div>
+                <div style="color: var(--muted); font-size: 0.85rem;">Unit: ₹{{item.price}}</div>
+              </div>
+            </div>
+          </td>
+          <td style="display: none;">₹{{item.price}}</td>
+          <td>
+            <div
+              style="display: flex; align-items: center; gap: 0.8rem; background: #f9fafb; padding: 0.4rem 0.8rem; border-radius: 999px; width: fit-content;">
+              <button class="qty-btn" onclick="updateQty('{{item.sno}}', -1)">−</button>
+              <span style="font-weight: 600; min-width: 20px; text-align: center;">{{item.qty}}</span>
+              <button class="qty-btn" onclick="updateQty('{{item.sno}}', 1)">+</button>
+            </div>
+          </td>
+          <td>
+            <div style="font-weight: 700; color: var(--primary-dark); font-size: 1.1rem;">₹{{ "{:,}".format(item.total)
+              }}</div>
+          </td>
+          <td style="text-align: right;">
+            <button onclick="removeItem('{{item.sno}}')"
+              style="color: #ef4444; background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 0.5rem;"
+              title="Remove Item">✕</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div
+      style="background: white; border-radius: 1rem; padding: 2rem; margin-top: 2rem; box-shadow: var(--shadow); border: 1px solid var(--border);">
+      <div
+        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem;">
+        <span style="font-size: 1.1rem; color: var(--muted);">Subtotal</span>
+        <span style="font-size: 1.5rem; font-weight: 700;">₹{{ "{:,}".format(total_amount) }}</span>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+        <a href="/shop"><button class="btn btn-outline" style="padding: 1rem 2rem;">Continue Shopping</button></a>
+        <a href="/billing_cart"><button class="btn btn-primary"
+            style="padding: 1rem 2.5rem; font-size: 1.05rem;">Checkout Now →</button></a>
+      </div>
+    </div>
+    {% else %}
+    <div style="text-align: center; padding: 4rem 1rem;">
+      <div style="font-size: 4rem; margin-bottom: 1rem;">🛒</div>
+      <h3 style="margin-bottom: 1rem; color: var(--text);">Your cart is empty</h3>
+      <p style="color: var(--muted); margin-bottom: 2rem;">Looks like you haven't added anything yet.</p>
+      <a href="/shop"><button class="btn btn-primary" style="padding: 0.8rem 2rem;">Go Shopping</button></a>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+
+<style>
+  .cart-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+  }
+
+  .cart-row {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    transform: scale(1);
+    transition: transform 0.2s;
+  }
+
+  .cart-row td {
+    padding: 1.2rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cart-row td:first-child {
+    border-left: 1px solid var(--border);
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+  }
+
+  .cart-row td:last-child {
+    border-right: 1px solid var(--border);
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+
+  .qty-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: white;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .qty-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-soft);
+  }
+</style>
+
+<script>
+  // Helper to read cookie (local definition to avoid race conditions)
+  function getCookie(name) {
+    let match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+    return match ? match[2] : null;
+  }
+
+  function updateQty(id, change) {
+    let cart = getCookie("cart");
+    let items = cart ? cart.split(",").filter(x => x) : [];
+
+    if (change === 1) {
+      items.push(id);
+    } else if (change === -1) {
+      const index = items.indexOf(String(id));
+      if (index > -1) {
+        items.splice(index, 1);
+      }
+    }
+
+    document.cookie = "cart=" + items.join(",") + "; path=/; max-age=31536000";
+    // Reload to let server re-render
+    location.reload();
+  }
+
+  function removeItem(id) {
+    let cart = getCookie("cart");
+    let items = cart ? cart.split(",").filter(x => x) : [];
+    const newItems = items.filter(item => item !== String(id));
+
+    document.cookie = "cart=" + newItems.join(",") + "; path=/; max-age=31536000";
+    location.reload();
+  }
+</script>
+
+{% endblock %}

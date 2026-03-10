@@ -1,0 +1,227 @@
+{% extends "layout.html" %}
+{%block body%}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>All Products - NovaMart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-soft: #eff6ff;
+      --primary-dark: #1d4ed8;
+      --accent: #f97316;
+      --bg: #f9fafb;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --radius: 1rem;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+      --transition: all 0.25s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 1.2rem;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .controls>* {
+      flex: 1 1 200px;
+      min-width: 150px;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.25s ease;
+    }
+
+    input[type="text"]:focus,
+    select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 5px var(--primary);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.1rem;
+    }
+
+    .product-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 0.85rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+    }
+
+    /* Responsive Grid overrides if needed */
+    @media (max-width: 768px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>All Products</h1>
+
+  <div class="controls">
+    <!-- Search is now handled globally in the header -->
+
+    <select id="categoryFilter" aria-label="Filter by category">
+      <option value="all">All Categories</option>
+      <option value="Headphones">Headphones</option>
+      <option value="Smartwatch">Smartwatches</option>
+      <option value="Laptop">Laptops</option>
+      <option value="Sneakers">Sneakers</option>
+    </select>
+
+    <select id="sortSelect" aria-label="Sort products">
+      <option value="default">Sort by</option>
+      <option value="price-asc">Price — Low to High</option>
+      <option value="price-desc">Price — High to Low</option>
+      <option value="rating-desc">Rating — High to Low</option>
+      <option value="rating-asc">Rating — Low to High</option>
+    </select>
+  </div>
+
+  <!-- SERVER SIDE RENDERED GRID -->
+  <div class="product-grid" id="productGrid">
+    {% for i in pd %}
+    <article class="product-card" tabindex="0" data-name="{{ i.name|lower }}" data-category="Headphones"
+      data-price="{{ i.price }}" data-rating="4.8">
+
+      <div class="product-img">
+        <a href='/single_item/{{ i.sno }}'>
+          <img src="/static/img/pdimg/{{ i.sno }}/01.jpeg" alt="{{ i.name }}"
+            onerror="this.src='/static/img/orma/04.png'">
+        </a>
+      </div>
+
+      <div class="product-info">
+        <div class="product-name">{{ i.name }}</div>
+        <div class="product-brand">ORMA</div>
+        <div class="rating">★★★★★ · 4.8</div>
+      </div>
+
+      <div class="product-bottom">
+        <div class="price">₹{{ i.price }} <small>₹{{ (i.price + i.price/6) | round(2) }}</small></div>
+        <button class="add-btn" onclick="addToCart('{{ i.sno }}')" type="button">Add to cart</button>
+      </div>
+    </article>
+    {% else %}
+    <p>No products found in the database.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Client-Side Filtering & Sorting Logic for DOM elements -->
+  <script>
+    const productGrid = document.getElementById('productGrid');
+    // const searchInput = document.getElementById('shopSearchInput'); // Removed
+    const categoryFilter = document.getElementById('categoryFilter');
+    const sortSelect = document.getElementById('sortSelect');
+
+    function filterSortProducts() {
+      const cards = Array.from(productGrid.getElementsByClassName('product-card'));
+      const searchText = ""; // searchInput.value.trim().toLowerCase(); 
+      // Note: Client-side text filtering is disabled in favor of server-side search via Header.
+
+      const selectedCategory = categoryFilter.value;
+      const sortValue = sortSelect.value;
+
+      // 1. Filter Visibility
+      cards.forEach(card => {
+        const name = card.getAttribute('data-name');
+        const category = card.getAttribute('data-category');
+
+        // const matchesSearch = name.includes(searchText); 
+        const matchesCategory = selectedCategory === 'all' || category === selectedCategory;
+
+        if (matchesCategory) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // 2. Sort Order
+      const visibleCards = cards.filter(c => c.style.display !== 'none');
+
+      visibleCards.sort((a, b) => {
+        const priceA = parseFloat(a.getAttribute('data-price'));
+        const priceB = parseFloat(b.getAttribute('data-price'));
+        const ratingA = parseFloat(a.getAttribute('data-rating'));
+        const ratingB = parseFloat(b.getAttribute('data-rating'));
+
+        if (sortValue === 'price-asc') return priceA - priceB;
+        if (sortValue === 'price-desc') return priceB - priceA;
+        if (sortValue === 'rating-desc') return ratingB - ratingA;
+        if (sortValue === 'rating-asc') return ratingA - ratingB;
+        return 0;
+      });
+
+      // Re-append to change order
+      visibleCards.forEach(card => productGrid.appendChild(card));
+    }
+
+    // searchInput.addEventListener('input', filterSortProducts);
+    categoryFilter.addEventListener('change', filterSortProducts);
+    sortSelect.addEventListener('change', filterSortProducts);
+  </script>
+
+
+
+</body>
+
+</html>
+{%endblock%}
