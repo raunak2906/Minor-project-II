@@ -55,3 +55,56 @@ Admins can use the localized portal at /master to modify the storefront.
 
 Add New Products: The product entry form allows direct insertion of new stock (name, price, detail).
 Image Handling System: The Flask backend natively handles image uploads over standard HTTP forms (enctype="multipart/form-data"), automatically building structural directories (/static/img/pdimg/{Product ID}/01.jpeg) to ensure images seamlessly link to newly inserted database objects.
+
+
+# NovaMart (Orma) Setup & Execution Guide
+
+This is a step-by-step walkthrough to help you run the **NovaMart (Orma)** web application for the first time. The application is built with Flask, SQLAlchemy, and SQLite.
+
+## 1. Prerequisites
+Ensure you have Python 3 installed on your Windows machine. The project is set up with a virtual environment named `.venv`.
+
+## 2. Activate the Virtual Environment
+Open PowerShell or your preferred terminal in the project directory (`c:\Users\gaurav\Documents\Java-second-year-programs--main`) and activate the virtual environment:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+*(If you are using Command Prompt instead, use `.\.venv\Scripts\activate.bat`)*
+
+## 3. Install Dependencies
+If you haven't installed the required Python packages yet, you need to install them. Since there is no `requirements.txt` file, you can install the necessary modules manually:
+
+```powershell
+pip install Flask Flask-SQLAlchemy Flask-Mail qrcode[pil] PyMySQL
+```
+
+## 4. Initialize the Database
+The application requires a database to store products, users, orders, and reviews. There is a convenient setup script that will create the `orma.db` SQLite database and populate it with initial product data.
+
+Run the initialization script:
+```powershell
+python init_sqlite.py
+```
+*You should see a message indicating: "Database initialized with product data for SQLite!"*
+
+## 5. Start the Application
+You currently have two main ways to run the server:
+
+### Option A: Standard Run (Port 80)
+If Port 80 is not currently in use by another service (like Apache or IIS), you can run the primary application entry point:
+```powershell
+python main.py
+```
+*Note: Depending on your system configuration, running on Port 80 might require administrative privileges.*
+
+### Option B: Alternative Run via PyMySQL wrapper (Port 5001)
+If Port 80 is blocked or you prefer to run it safely on another port, an alternative runner is provided which patches PyMySQL over MySQLdb and runs on Port 5001:
+```powershell
+python run_with_pymysql.py
+```
+
+## 6. Access the Application
+Once the server is running, open your web browser and navigate to:
+- If you used Option A: [http://localhost](http://localhost)
+- If you used Option B: [http://localhost:5001](http://localhost:5001)
